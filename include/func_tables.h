@@ -1761,7 +1761,7 @@ void func_80056618(void);
 void func_80056718(void);
 
 // D_800FCFA8
-void func_800567C4(void);
+void func_800567C4(struct MainObj*);
 void func_80056AC4(void);
 void func_80056BA8(void);
 
@@ -2368,7 +2368,7 @@ void func_80068C2C(struct MainObj*);
 
 // D_800FFBB0
 void func_80068CEC(struct MainObj* arg0);
-void func_80068D4C(void);
+void func_80068D4C(struct MainObj* arg0);
 
 // D_800FFBB8
 void func_800691B8(struct MainObj*);
@@ -3387,12 +3387,12 @@ void func_80086640(void);
 
 // D_80104830
 void func_80086740(void);
-void func_800867C4(void);
+void func_800867C4(struct MainObj*);
 void func_80086860(void);
 void func_80086900(void);
 void func_800869BC(void);
 void func_800869F8(void);
-void func_80086A6C(void);
+void func_80086A6C(struct MainObj*);
 void func_80086B08(void);
 
 // D_80104850
@@ -3426,7 +3426,7 @@ void func_80087604(void);
 
 // D_801048A4
 void func_80087698(void);
-void func_80087708(void);
+void func_80087708(struct MainObj*);
 void func_800877A4(void);
 void func_80087860(void);
 
@@ -3445,7 +3445,7 @@ void func_80087F30(void);
 
 // D_801048D8
 void func_80087FB4(void);
-void func_80088020(void);
+void func_80088020(struct MainObj*);
 void func_800880BC(void);
 void func_80088140(void);
 void func_800881F8(void);
@@ -6019,7 +6019,7 @@ void func_800D0658(void);
 void func_800D0698(void);
 void func_800D06E0(void);
 void func_800D0754(void);
-void func_800D07C0(void);
+void func_800D07C0(struct MainObj*);
 
 // D_8010F084
 void func_800D0828(void);
@@ -6030,7 +6030,7 @@ void func_800D09E4(void);
 void func_800D0A04(void);
 void func_800D0AA4(void);
 void func_800D0B14(void);
-void func_800D0B68(void);
+void func_800D0B68(struct UnkObj*);
 void func_800D0B90(void);
 void func_800D0BE4(void);
 void func_800D0C60(void);
@@ -6058,11 +6058,11 @@ void func_800D154C(void);
 void func_800D15A8(void);
 void func_800D1614(void);
 void func_800D166C(void);
-void func_800D16E0(void);
+void func_800D16E0(struct UnkObj*);
 void func_800D1708(void);
 void func_800D177C(void);
 void func_800D17F0(void);
-void func_800D1864(void);
+void func_800D1864(struct UnkObj*);
 void func_800D188C(void);
 
 // D_8010F1E0

@@ -51,7 +51,7 @@ void func_800312B4(struct PlayerObj* arg0)
 
 void func_80031410(struct PlayerObj* arg0)
 {
-    func_80015DC8();
+    func_80015DC8(arg0);
     if (arg0->unk6 == 0) {
         if (arg0->unkBE != 0) {
             if (--arg0->unkBE == 0) {
