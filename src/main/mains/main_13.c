@@ -2,7 +2,11 @@
 // 8004C734..8004CF24
 #include "common.h"
 
-INCLUDE_ASM("main/nonmatchings/mains/main_13", func_8004C734);
+void func_8004C734(struct MainObj* arg0)
+{
+    D_800FB858[arg0->state](arg0);
+    CollisionRelated((struct PlayerObj*)arg0);
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_13", func_8004C784);
 
@@ -10,11 +14,18 @@ INCLUDE_ASM("main/nonmatchings/mains/main_13", func_8004C860);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_13", func_8004C97C);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_13", func_8004C9E8);
+void func_8004C9E8(struct MainObj* arg0)
+{
+    arg0->ext.main_13.unk80 = 0;
+    arg0->ext.main_13.unk84 = 0;
+    arg0->ext.main_13.unk88 = 0;
+    arg0->ext.main_13.saved_unk5 = 0;
+    func_8002B0C8(OBJECT_HEADER(arg0));
+}
 
 void func_8004CA14(struct MainObj* arg0)
 {
-    arg0->unk5 = arg0->state_8c.unk8C;
+    arg0->unk5 = arg0->ext.main_13.saved_unk5;
 }
 
 void func_8004CA20(struct MainObj* arg0)
@@ -41,4 +52,11 @@ INCLUDE_ASM("main/nonmatchings/mains/main_13", func_8004CE48);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_13", func_8004CE94);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_13", func_8004CEF4);
+void func_8004CEF4(struct AnimatedObj* arg0)
+{
+    if (arg0->x_pos.val > g_Player.x_pos.val) {
+        arg0->unk15 = 0;
+    } else {
+        arg0->unk15 = 0x40;
+    }
+}

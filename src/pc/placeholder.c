@@ -147,19 +147,6 @@ s32 func_800157AC(u8 type, s32 unused, struct BaseObj* source)
     return 0;
 }
 
-u32 D_800F45E4[10] = {
-    0,
-    0x1936,
-    0x4DA8,
-    0x88D5,
-    0xD218,
-    0x137EF,
-    0x1DEF1,
-    0x34BEB,
-    0xA2736,
-    0xFFFFFFFF,
-};
-
 struct ControllerButtons {
     u16 current;
     u16 previous;
@@ -453,43 +440,6 @@ s32 func_8002CD70(struct PlayerObj* object, u8 attribute)
     default:
         return 0;
     }
-}
-
-s32 func_8002D490(struct PlayerObj* object)
-{
-    s16 offset = D_8013B800;
-    s16 x;
-
-    if (D_8013B7DC & 1) {
-        if (object->unk15)
-            x = D_8013B7F0 + offset + D_8013B7E8 + D_8013B7E0 - 1;
-        else
-            x = D_8013B7F0 + offset - D_8013B7E8 + D_8013B7E0 - 1;
-    } else {
-        if (object->unk15)
-            x = D_8013B7F0 + offset + D_8013B7E8 - D_8013B7E0;
-        else
-            x = D_8013B7F0 + offset - D_8013B7E8 - D_8013B7E0;
-    }
-    if (func_8002D5E4(object, x))
-        return -1;
-    object->x_pos.i.lo = 0;
-    object->x_pos.i.hi += offset;
-    return 0;
-}
-
-void func_8002C9E4(struct PlayerObj* object)
-{
-    object->x_pos.i.lo = 0;
-    object->y_pos.i.lo = 0;
-    object->x_pos.i.hi += D_8013B800;
-    object->y_pos.i.hi += D_8013B804;
-}
-
-void func_8002C99C(struct PlayerObj* object)
-{
-    if (func_8002D490(object) && func_8002D25C(object))
-        func_8002C9E4(object);
 }
 
 void func_8002E994(struct EngineObj* arg0)
@@ -1905,7 +1855,7 @@ void func_800C00BC(struct ItemObj* arg0)
     }
 
     arg0->unk5 = 0;
-    switch (arg0->unk7C) {
+    switch (arg0->unk7C.value) {
     case 0:
         func_800BFF0C(arg0, 4, 1);
         break;
@@ -1915,7 +1865,7 @@ void func_800C00BC(struct ItemObj* arg0)
     case 2:
     case 3:
     case 6:
-        func_800BFCC0(arg0, arg0->unk7C);
+        func_800BFCC0(arg0, arg0->unk7C.value);
         arg0->state = 3;
         break;
     case 4:
@@ -1985,24 +1935,6 @@ void func_800C00BC(struct ItemObj* arg0)
     }
 }
 
-void func_800C0DFC(struct ItemObj* arg0)
-{
-    s32 i;
-    s32* source;
-    s32* destination;
-
-    destination = (s32*)((u8*)SP_PALETTE + 0xEE0);
-    if (arg0->unk88 != 0) {
-        source = (s32*)((u8*)SP_ARC_30 + 0x9A0);
-    } else {
-        source = (s32*)((u8*)SP_ARC_30 + 0xA80);
-    }
-    for (i = 0; i < 0x38; i++) {
-        destination[i] = source[i];
-    }
-    need_palette_load |= 1;
-}
-
 void func_80068D6C(struct MainObj* arg0)
 {
     s16 x;
@@ -2015,7 +1947,7 @@ void func_80068D6C(struct MainObj* arg0)
     CollisionRelated((struct PlayerObj*)arg0);
     if (!(arg0->unk70 & 8)) {
         func_80015D60(arg0, 0xF);
-        SP_CUR_MAIN_OBJ->state_80.bytes.unk80 = 5;
+        SP_CUR_MAIN_OBJ->ext.main_49.unk80 = 5;
         arg0->unk5 = 3;
         arg0->unk2C = 0x4200;
         arg0->unk6 = 0;
@@ -2025,7 +1957,7 @@ void func_80068D6C(struct MainObj* arg0)
         return;
     }
 
-    if (SP_CUR_MAIN_OBJ->state_80.bytes.unk85 == 2 || arg0->unk5 == 6) {
+    if (SP_CUR_MAIN_OBJ->ext.main_49.unk85 == 2 || arg0->unk5 == 6) {
         return;
     }
 
@@ -2051,7 +1983,7 @@ void func_80068D6C(struct MainObj* arg0)
     func_80015D60(arg0, 0x19);
     arg0->unk5 = 4;
     arg0->unk6 = 0;
-    if (SP_CUR_MAIN_OBJ->state_80.bytes.unk86 == 0) {
+    if (SP_CUR_MAIN_OBJ->ext.main_49.unk86 == 0) {
         arg0->unk24 = 0x38000;
         arg0->unk2C = 0x4200;
         arg0->unk20 = arg0->unk15 == 0 ? -0x10000 : 0x10000;
@@ -2072,8 +2004,8 @@ void func_80069000(struct MainObj* arg0)
     if (arg0->unk67 != 0 || arg0->unk5 == 6) {
         return;
     }
-    if (SP_CUR_MAIN_OBJ->state_80.fields.unk83 != 0) {
-        SP_CUR_MAIN_OBJ->state_80.fields.unk83--;
+    if (SP_CUR_MAIN_OBJ->ext.main_49.unk83 != 0) {
+        SP_CUR_MAIN_OBJ->ext.main_49.unk83--;
         return;
     }
 
@@ -2086,17 +2018,17 @@ void func_80069000(struct MainObj* arg0)
     }
 
     arg0->unk15 = g_Player.x_pos.i.hi < arg0->x_pos.i.hi ? 0 : 0x40;
-    mode = SP_CUR_MAIN_OBJ->state_80.bytes.unk85;
+    mode = SP_CUR_MAIN_OBJ->ext.main_49.unk85;
     if (mode == 1 || (mode == 2 && arg0->unk2 != 0)) {
-        SP_CUR_MAIN_OBJ->state_80.fields.unk82 = 0x40;
+        SP_CUR_MAIN_OBJ->ext.main_49.unk82 = 0x40;
     } else {
         y_distance = arg0->y_pos.i.hi - g_Player.y_pos.i.hi;
         if (y_distance >= 0x21) {
-            SP_CUR_MAIN_OBJ->state_80.fields.unk82 = 0x80;
+            SP_CUR_MAIN_OBJ->ext.main_49.unk82 = 0x80;
         } else if (y_distance < -0x10) {
-            SP_CUR_MAIN_OBJ->state_80.fields.unk82 = 0x82;
+            SP_CUR_MAIN_OBJ->ext.main_49.unk82 = 0x82;
         } else {
-            SP_CUR_MAIN_OBJ->state_80.fields.unk82 = 0x81;
+            SP_CUR_MAIN_OBJ->ext.main_49.unk82 = 0x81;
         }
     }
     func_80015D60(arg0, 0xA);
@@ -2114,7 +2046,7 @@ void func_800998D4(struct ShotObj* arg0)
     if (arg0->unk70 & 8) {
         arg0->unk60 = 5;
         arg0->unk68 = 0;
-        arg0->unk50 = D_80108C58;
+        arg0->unk50.data = D_80108C58;
         arg0->unk5++;
         func_80015D60(arg0, 0xB);
         if (!(arg0->unk70 & 3)) {

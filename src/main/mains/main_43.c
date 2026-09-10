@@ -42,7 +42,11 @@ void func_80063F80(struct MainObj* arg0)
     D_800FF75C[arg0->unk6](arg0);
 }
 
-INCLUDE_ASM("main/nonmatchings/mains/main_43", func_80063FBC);
+void func_80063FBC(struct MainObj* arg0)
+{
+    arg0->unk6 = 1;
+    func_80015D60(arg0, 3);
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_43", func_80063FE4);
 
@@ -74,7 +78,11 @@ INCLUDE_ASM("main/nonmatchings/mains/main_43", func_800648D0);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_43", func_800649C0);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_43", func_80064AE8);
+void func_80064AE8(struct MainObj* arg0)
+{
+    D_800FF790[arg0->unk6](arg0);
+    CollisionRelated((struct PlayerObj*)arg0);
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_43", func_80064B38);
 
@@ -98,11 +106,27 @@ INCLUDE_ASM("main/nonmatchings/mains/main_43", func_80065088);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_43", func_80065168);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_43", func_80065268);
+void func_80065268(struct MainObj* arg0)
+{
+    arg0->unk7C = D_800FF7A4[(arg0->unk5C & 0x7F) >> 3];
+}
 
-INCLUDE_ASM("main/nonmatchings/mains/main_43", func_8006528C);
+void func_8006528C(struct MainObj* arg0)
+{
+    if (arg0->ext.main_43.unk90 == 0) {
+        arg0->ext.main_43.unk90 = D_800FF7A8[(arg0->unk5C & 0x7F) >> 3];
+    }
+}
 
-INCLUDE_ASM("main/nonmatchings/mains/main_43", func_800652C8);
+void func_800652C8(struct MainObj* arg0)
+{
+    u8 animation_id;
+
+    animation_id = D_800FF6C8[arg0->ext.main_43.animation_set]
+                             [arg0->ext.main_43.animation_index];
+    arg0->ext.main_43.animation_id = animation_id;
+    func_80015D60(arg0, animation_id);
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_43", func_8006530C);
 
@@ -125,4 +149,7 @@ INCLUDE_ASM("main/nonmatchings/mains/main_43", func_80065794);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_43", func_80065898);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_43", func_80065910);
+void func_80065910(struct MainObj* arg0)
+{
+    ZeroObjectState(OBJECT_HEADER(arg0));
+}

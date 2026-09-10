@@ -6,9 +6,15 @@ INCLUDE_ASM("main/nonmatchings/misc/misc_57", func_800D3388);
 
 INCLUDE_ASM("main/nonmatchings/misc/misc_57", func_800D34AC);
 
-INCLUDE_ASM("main/nonmatchings/misc/misc_57", func_800D34F0);
+void func_800D34F0(struct MiscObj* arg0)
+{
+    ZeroObjectState(OBJECT_HEADER(arg0));
+}
 
-INCLUDE_ASM("main/nonmatchings/misc/misc_57", func_800D3510);
+void func_800D3510(struct MiscObj* arg0)
+{
+    D_8010F5BC[arg0->state](arg0);
+}
 
 void func_800D354C(struct UnkObj* arg0)
 {
@@ -104,3 +110,22 @@ void func_800D38A0(struct UnkObj* arg0)
     }
     is_on_screen(arg0);
 }
+
+union AnimationStep D_8010F5A0[6] = {
+    { .packed = 0x00010001 },
+    { .packed = 0x01010001 },
+    { .packed = 0x02010001 },
+    { .packed = 0x03010001 },
+    { .packed = 0x04010001 },
+    { .packed = 0x05000001 },
+};
+union AnimationStep* D_8010F5B8[1] = { D_8010F5A0 };
+
+void (*D_8010F5BC[3])(struct MiscObj*) = {
+    func_800D3388,
+    func_800D34AC,
+    func_800D34F0,
+};
+
+u16 D_8010F5C8[8] = { 0x10, 0x80, 0x100, 0x40, 0x20, 0x200, 0x400, 0 };
+u16 D_8010F5D8[8] = { 0x80, 0x10, 0x40, 0x20, 4, 1, 8, 2 };

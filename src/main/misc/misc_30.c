@@ -2,8 +2,19 @@
 // 800CDCC0..800CDE44
 #include "common.h"
 
-INCLUDE_ASM("main/nonmatchings/misc/misc_30", func_800CDCC0);
+void func_800CDCC0(struct MiscObj* arg0)
+{
+    D_8010EC30[arg0->state](arg0);
+}
 
 INCLUDE_ASM("main/nonmatchings/misc/misc_30", func_800CDCFC);
 
-INCLUDE_ASM("main/nonmatchings/misc/misc_30", func_800CDE24);
+void func_800CDE24(struct MiscObj* arg0)
+{
+    ZeroObjectState(OBJECT_HEADER(arg0));
+}
+
+void (*D_8010EC30[2])(struct MiscObj*) = {
+    func_800CDCFC,
+    func_800CDE24,
+};

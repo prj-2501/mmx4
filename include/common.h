@@ -306,6 +306,13 @@ union PlayerUnk8A {
     } bytes;
 };
 
+typedef s8 PlayerChargeState;
+enum {
+    PLAYER_CHARGE_NONE,
+    PLAYER_CHARGE_PARTIAL,
+    PLAYER_CHARGE_FULL,
+};
+
 MMX4_STATIC_ASSERT(animation_step_size, sizeof(union AnimationStep) == sizeof(u32));
 
 #define OBJECT_HEADER_FIELDS \
@@ -367,6 +374,11 @@ struct AnimatedObj {
     ANIMATED_OBJ_FIELDS
 };
 
+struct GraphicsObj {
+    ANIMATED_OBJ_FIELDS
+    s8 unk49;
+};
+
 struct CollisionObj {
     u8 pad0[8];
     f32 x_pos;
@@ -386,31 +398,243 @@ MMX4_STATIC_ASSERT(psx_base_object_size, sizeof(struct BaseObj) == 0x18);
 #define OBJECT_HEADER(object) ((struct ObjectHeader*)(object))
 #define BASE_OBJECT(object) ((struct BaseObj*)(object))
 #define MOVING_OBJECT(object) ((struct MovingObj*)(object))
+#define GRAPHICS_OBJECT(object) ((struct GraphicsObj*)(object))
 
-union MainObjState80 {
-    struct {
-        u32 unk80;
-        s32 unk84;
-    } words;
-    struct {
-        u8 unk80;
-        u8 index;
-        u8 flags[3];
-        u8 unk85;
-        u8 unk86;
-        u8 unk87;
-    } bytes;
-    struct {
-        u8 unk80;
-        u8 unk81;
-        u8 unk82;
-        u8 unk83;
-        u8 unk84;
-        u8 unk85;
-        u8 unk86;
-        u8 unk87;
-    } fields;
+struct Main0Ext {
+    u8 unk80;
+    u8 index;
+    u8 flags[3];
+    u8 unk85;
 };
+
+struct Main3Ext {
+    u32 unk80;
+    s32 unk84;
+    u32 unk88;
+    u32 unk8C;
+    u32 saved_unk5;
+};
+
+struct Main5Ext {
+    u8 pad80[0xC];
+    u16 saved_unk5;
+};
+
+struct MainSavedState80Ext {
+    u32 saved_unk5;
+};
+
+struct Main58Ext { u32 saved_unk5, unk84, unk88; };
+struct Main10Ext {
+    u32 unk80;
+    s32 unk84;
+    s32 unk88;
+    u32 unk8C;
+    u32 unk90;
+    u32 saved_unk5;
+};
+
+struct MainSavedState8CExt {
+    u8 pad80[0xC];
+    u32 saved_unk5;
+};
+
+struct MainSavedState90Ext {
+    u8 pad80[0x10];
+    u32 saved_unk5;
+};
+
+struct MainSavedState94Ext {
+    u8 pad80[0x14];
+    u32 saved_unk5;
+};
+
+struct Main13Ext {
+    u32 unk80;
+    u32 unk84;
+    u32 unk88;
+    u32 saved_unk5;
+};
+
+struct Main11Ext {
+    u8 pad80[7];
+    u8 saved_unk5;
+};
+
+struct Main12Ext {
+    u8 pad80[2];
+    u8 saved_unk5;
+};
+
+struct Main22Ext {
+    u32 saved_unk5;
+    u32 unk84;
+    u8 pad88[0xC];
+    u32 unk94;
+};
+
+struct Main24Ext {
+    u32 unk80;
+    u8 pad84[0x10];
+    u32 saved_unk5;
+};
+
+struct Main25Ext {
+    u32 unk80;
+    u32 unk84;
+    u32 unk88;
+    u8 pad8C[8];
+    u32 saved_unk5;
+};
+
+struct Main35Ext {
+    u32 unk80;
+    u32 unk84;
+    u8 pad88[0xC];
+    u32 saved_unk5;
+};
+
+struct Main48Ext {
+    u8 pad80[4];
+    u8 saved_unk5;
+};
+
+struct Main73Ext {
+    u8 pad80[9];
+    s8 unk89;
+    u8 pad8A[2];
+    u8 effect_state;
+    u8 object_id;
+    u8 unk8E;
+};
+
+struct Main18Ext {
+    u8 pad80[0x17];
+    u8 saved_unk5;
+};
+
+struct Main19Ext {
+    u8 pad80;
+    u8 animation_index;
+};
+
+struct Main21Ext {
+    s16 timer_80;
+    s16 timer_82;
+    u8 saved_unk5;
+};
+
+struct Main49Ext {
+    u8 unk80;
+    u8 index;
+    u8 unk82;
+    u8 unk83;
+    u8 pad84;
+    u8 unk85;
+    u8 unk86;
+};
+
+struct Main36Ext {
+    u8 pad80[8];
+    u8 saved_unk5;
+};
+
+struct Main43Ext {
+    u8 pad80[0xC];
+    u16 animation_index;
+    u16 animation_length;
+    u16 unk90;
+    u8 pad92[4];
+    u8 animation_id;
+    s8 animation_set;
+};
+
+struct Main56Ext {
+    u8 pad80[0xB];
+    u8 flags;
+};
+
+struct Main487Ext {
+    u8 pad80[0xA];
+    u8 unk8A;
+};
+
+struct Main71Ext {
+    u8 pad80[4];
+    s16 unk84;
+    u8 unk86;
+    u8 unk87;
+    u8 unk88;
+    u8 pad89;
+    u8 unk8A;
+};
+
+struct Main72Ext {
+    u8 pad80[4];
+    s16 unk84;
+};
+
+struct Main60Ext {
+    u8 pad80[0xA];
+    u8 saved_unk5;
+};
+
+struct Main64Ext {
+    u8 pad80[0xB];
+    u8 unk8B;
+};
+
+struct Main75Ext {
+    u8 pad80[0xE];
+    u8 saved_unk5;
+};
+
+union MainObjExt {
+    u32 raw[7];
+    struct Main0Ext main_0;
+    struct Main3Ext main_3;
+    struct Main5Ext main_5;
+    struct MainSavedState94Ext main_6;
+    struct MainSavedState94Ext main_7;
+    struct Main10Ext main_10;
+    struct Main11Ext main_11;
+    struct Main12Ext main_12;
+    struct Main13Ext main_13;
+    struct MainSavedState90Ext main_14;
+    struct MainSavedState90Ext main_17;
+    struct Main18Ext main_18;
+    struct Main19Ext main_19;
+    struct Main21Ext main_21;
+    struct Main22Ext main_22;
+    struct Main24Ext main_24;
+    struct Main25Ext main_25;
+    struct MainSavedState94Ext main_27;
+    struct MainSavedState94Ext main_32;
+    struct MainSavedState94Ext main_33;
+    struct Main35Ext main_35;
+    struct Main36Ext main_36;
+    struct Main43Ext main_43;
+    struct Main487Ext main_487;
+    struct MainSavedState94Ext main_37;
+    struct MainSavedState80Ext main_38;
+    struct MainSavedState94Ext main_44;
+    struct Main48Ext main_48;
+    struct Main49Ext main_49;
+    struct MainSavedState94Ext main_51;
+    struct MainSavedState94Ext main_52;
+    struct Main56Ext main_56;
+    struct Main58Ext main_58;
+    struct Main60Ext main_60;
+    struct Main64Ext main_64;
+    struct MainSavedState94Ext main_67;
+    struct MainSavedState94Ext main_70;
+    struct Main71Ext main_71;
+    struct Main72Ext main_72;
+    struct Main73Ext main_73;
+    struct Main75Ext main_75;
+};
+
+MMX4_STATIC_ASSERT(main_obj_ext_size, sizeof(union MainObjExt) == 0x1C);
 
 #define MAIN_OBJ_TAIL_FIELDS                        \
     s32 unk20;                                  \
@@ -459,15 +683,7 @@ union MainObjState80 {
     u8 unk7B;                                    \
     s16 unk7C;                                   \
     s16 unk7E;                                   \
-    union MainObjState80 state_80;               \
-    u32 unk88;                                   \
-    union {                                      \
-        u16 unk8C_half;                          \
-        u32 unk8C;                               \
-    } state_8c;                                  \
-    u32 unk90;                                   \
-    u32 unk94;                                   \
-    u32 pad98;
+    union MainObjExt ext;
 
 struct MainObj {
     BASE_OBJ_FIELDS
@@ -500,19 +716,20 @@ struct BackgroundObj {
     s16 unk2E;
     s16 unk30;
     s16 unk32;
-    s16 unk34;
-    u8 pad36;
+    u16 unk34;
+    s8 unk36;
     s8 unk37;
-    u8 pad38[3];
+    u8 pad38[2];
+    s8 unk3A;
     s8 unk3B;
-    u8 pad3C;
+    s8 unk3C;
     s8 unk3D;
-    u8 pad3E;
+    s8 unk3E;
     s8 unk3F;
     u16 unk40;
     u16 unk42;
     s8 unk44;
-    u8 pad45;
+    s8 unk45;
     s8 unk46;
     u8 unk47;
     s8 unk48;
@@ -526,6 +743,18 @@ struct BackgroundObj {
     s8 max_y;
     s8 pad51[3];
 }; // size 0x54
+
+union PlayerUnk88 {
+    u16 value;
+    struct {
+        s8 timer;
+        u8 collision_flags;
+    } bytes;
+    struct {
+        u8 timer;
+        u8 collision_flags;
+    } unsigned_bytes;
+};
 
 // similar to Unk
 struct PlayerObj {
@@ -564,22 +793,27 @@ struct PlayerObj {
     s8 unk7A;
     union {
         u32 history;
-        struct {
-            u16 held;
-            u16 previous;
-        } buttons;
-    } input;
+    struct {
+        u16 held;
+        u16 previous;
+    } buttons;
+    struct {
+        u8 held_low;
+        u8 held_high;
+        u8 previous_low;
+        u8 previous_high;
+    } bytes;
+} input;
     u16 pressed_input;
     u16 unk82;
     s8 unk84;
     s8 : 8;
     s8 unk86;
     s8 unk87;
-    s8 unk88;
-    u8 unk89;
+    union PlayerUnk88 unk88;
     union PlayerUnk8A unk8A;
     s8 unk8C;
-    s8 : 8;
+    u8 unk8D;
     s8 unk8E;
     s8 unk8F;
     s8 unk90;
@@ -592,7 +826,7 @@ struct PlayerObj {
     s8 unk98;
     s8 unk99;
     s8 unk9A;
-    s8 unk9B[2];
+    PlayerChargeState charge_state[2];
     u8 unk9D;
     u8 unk9E;
     s8 unk9F;
@@ -621,9 +855,7 @@ struct PlayerObj {
     s8 unkC5;
     s8 unkC6;
     s8 unkC7;
-    s32 unkC8;
-    s32 unkCC;
-    s32 unkD0;
+    struct MainObj* weapon_06_slots[3];
     s8 unkD4;
     u8 unkD5;
     u8 unkD6;
@@ -682,7 +914,10 @@ struct VisualObj {
 struct ShotObj {
     ANIMATED_OBJ_FIELDS
     s8 pad49[0x50 - 0x49];
-    const u8* unk50;
+    union {
+        const u8* data;
+        struct PlayerObj* player;
+    } unk50;
     s32 unk54;
     s32 : 32;
     s8 unk5C;
@@ -711,8 +946,12 @@ struct ShotObj {
     s8 : 8;
     struct WeaponObj* unk7C; // might be something else
     s32 : 32;
-    s32 unk84;
-    s32 : 32;
+    union {
+        s32 value;
+        u8 bytes[4];
+    } unk84;
+    s16 timer;
+    s16 unk8A;
     s8 unk8C;
     s8 pad8D[0x98 - 0x8D];
     s8 unk98;
@@ -732,7 +971,9 @@ struct WeaponObj {
     void* unk3C;
     u16 unk40;
     u16 unk42;
-    s8 pad44[0x50 - 0x44];
+    s8 pad44[0x46 - 0x44];
+    s8 unk46;
+    s8 pad47[0x50 - 0x47];
     s32 unk50;
     s32 unk54;
     s8 pad58[0x61 - 0x58];
@@ -744,7 +985,9 @@ struct WeaponObj {
     s8 unk66;
     s8 unk67;
     s32 unk68;
-    s8 pad6C[0x72 - 0x6C];
+    s8 pad6C[4];
+    u8 unk70;
+    s8 unk71;
     s8 unk72;
     s8 unk73;
     s8 unk74;
@@ -756,9 +999,10 @@ struct WeaponObj {
     s8 unk7A;
     s8 pad7B;
     struct PlayerObj* owner;
-    s8 pad80[0x8C - 0x80];
+    s32 unk80;
+    s8 unk84; s8 pad85[0x8C - 0x85];
     s8 unk8C;
-    s8 pad8D;
+    s8 unk8D;
     s8 unk8E;
     s8 pad8F[0x94 - 0x8F];
     u8 unk94;
@@ -780,6 +1024,42 @@ struct UnkObj {
     u8 pad55[0x60 - 0x55];
 }; // size 0x60
 
+struct Item2Ext {
+    s8 unk80;
+    s8 unk81;
+    u16 unk82;
+};
+
+struct Item04Data {
+    u16 unk0;
+    u16 unk2[6];
+    u8 object_ids[50];
+};
+
+struct Item4Ext {
+    s32 timer;
+};
+
+struct Item12Ext {
+    s32 x_offset;
+};
+
+union ItemExt {
+    struct Item2Ext item_2;
+    struct Item4Ext item_4;
+    struct Item12Ext item_12;
+};
+
+union ItemUnk84 {
+    u16 timer;
+    u32 previous_value;
+};
+
+union ItemUnk7C {
+    u8 value;
+    s32 item_4_timer;
+};
+
 struct ItemObj {
     BASE_OBJ_FIELDS
     f32 unk18;
@@ -791,7 +1071,9 @@ struct ItemObj {
     s8 pad30[0x50 - 0x30];
     s32 unk50;
     s32 unk54;
-    s8 pad58[0x61 - 0x58];
+    s8 pad58[0x5C - 0x58];
+    s8 unk5C;
+    s8 pad5D[0x61 - 0x5D];
     s8 unk61;
     s8 unk62;
     s8 unk63;
@@ -799,7 +1081,7 @@ struct ItemObj {
     s8 unk65;
     s8 unk66;
     s8 unk67;
-    s32 unk68;
+    struct Unk_unk68* unk68;
     s8 pad6C[0x70 - 0x6C];
     u8 unk70;
     s8 : 8;
@@ -813,19 +1095,22 @@ struct ItemObj {
     s8 : 8;
     s8 unk7A;
     s8 pad7B;
-    u8 unk7C;
-    s8 pad7D[0x80 - 0x7D];
-    s8 unk80;
-    s8 unk81;
-    u16 unk82;
-    s8 pad84[0x88 - 0x84];
+    union ItemUnk7C unk7C;
+    union ItemExt ext;
+    union ItemUnk84 unk84;
     s32 unk88;
 }; // size 0x8C
+
+union LayerPrivateState {
+    f32 value;
+    s8 signed_byte;
+    u8 misc_20_active;
+};
 
 struct LayerObj {
     BASE_OBJ_FIELDS
     f32 unk18;
-    f32 unk1C;
+    union LayerPrivateState private_state;
     s8 pad20[0x30 - 0x20];
 }; // size 0x30
 
@@ -852,6 +1137,15 @@ struct MiscPointerExt {
     void* unk50;
 };
 
+struct Misc2Ext {
+    u8 pad50[4];
+    struct MainObj* owner;
+    u8 unk58;
+};
+
+struct Misc11Ext { u8 pad50[4], active; };
+struct Misc24Ext { struct MainObj* main; u16 timer, child_active; struct MiscObj* child; };
+
 struct TitleLogoExt {
     struct MiscObj* unk50;
     u8 palette_shift_speed; // 0x54
@@ -870,6 +1164,39 @@ struct SelectACharacterExt {
     u8 cur_character_selected;
 };
 
+struct Misc4Ext {
+    struct MainObj* owner;
+};
+
+struct Misc6Ext {
+    u8 pad50[4];
+    union {
+        s32 packed;
+        struct {
+            s16 x;
+            s16 y;
+        } position;
+    } saved_position;
+    u8 timer;
+};
+
+struct Misc20Ext {
+    struct LayerObj* owner;
+};
+
+struct Misc55Ext {
+    struct WeaponObj* owner;
+};
+
+struct Misc53Ext {
+    u8 pad50[4];
+    struct EffectObj* effect;
+    s16 timer;
+    u8 movement_timer;
+    u8 pad5B;
+    s8 x_step;
+};
+
 struct UnkExt {
     struct MiscUnk50_2* unk50;
     s8 unk54;
@@ -881,10 +1208,18 @@ struct UnkExt {
 };
 
 union MiscExt {
+    struct Misc2Ext misc_2;
+    struct Misc11Ext misc_11;
+    struct Misc24Ext misc_24;
+    struct Misc53Ext misc_53;
     struct ReadyTextExt ready_text;
     struct MiscPointerExt pointer;
     struct TitleLogoExt title_logo;
     struct SelectACharacterExt sel_char;
+    struct Misc4Ext misc_4;
+    struct Misc6Ext misc_6;
+    struct Misc20Ext misc_20;
+    struct Misc55Ext misc_55;
     struct UnkExt unk;
 };
 
@@ -931,18 +1266,25 @@ struct BazObj {
     s8 pad44[0x50 - 0x44];
 }; // size 0x50
 
-struct QuxObj {
+struct RideArmorObj {
     BASE_OBJ_FIELDS
     s32 unk18;
     s32 unk1C;
-    s8 pad20[0x5C - 0x20];
+    f32 x_vel;
+    s8 pad24[0x46 - 0x24];
+    s8 unk46;
+    s8 pad47[0x5C - 0x47];
     s8 unk5C;
-    s8 pad5D[0x8A - 0x5D];
+    s8 pad5D[0x7E - 0x5D];
+    u8 unk7E;
+    s8 pad7F[0x88 - 0x7F];
+    u16 collision_flags;
     s16 unk8A;
     s16 unk8C;
     s8 pad8E[0x97 - 0x8E];
     s8 unk97;
-    s8 pad98[0xB0 - 0x98];
+    s16 unk98;
+    s8 pad9A[0xB0 - 0x9A];
 }; // size 0xB0
 
 // D_8013BC28
@@ -1155,6 +1497,14 @@ extern struct PlayerObj g_Entity;
 extern const u32* D_80119DF0[144];
 extern struct Unk16 D_80141BD8;
 extern struct BackgroundObj background_objects[3];
+extern u8 D_800FF7A4[];
+extern u8 D_800FF7A8[4];
+extern const u8* D_800FF6C8[];
+extern u8 D_80104CDC[];
+extern u8 D_80104CE0[];
+extern struct Item04Data D_8010C8B4;
+extern u8 D_8010C904[];
+extern s32 D_8010C918[4];
 extern struct BgDrawRelated D_8015D9D0[];
 extern struct MainPrimitiveBuffer temp1[];
 extern struct SecondaryPrimitiveBuffer temp2[];
@@ -1252,6 +1602,22 @@ struct QuadUnkExt2 {
     u8 unk43;
 };
 
+struct Quad4Ext { u16 pad38; u8 timer; };
+union QuadScale {
+    u16 value;
+    struct {
+        u8 fraction;
+        u8 integer;
+    } bytes;
+};
+
+struct Quad2Ext {
+    const s32* vertices;
+    union QuadScale x_scale;
+    union QuadScale y_scale;
+    u8 direction[2];
+};
+
 struct QuadUnkExt3 {
     u8 unk38;
 };
@@ -1266,6 +1632,8 @@ union QuadExt {
     struct SearchLightMotion search_light;
     struct QuadUnkExt unk_ext;
     struct QuadUnkExt2 unk_ext2;
+    struct Quad4Ext quad_4;
+    struct Quad2Ext quad_2;
     struct QuadUnkExt3 unk_ext3;
     struct QuadUnkExt4 unk_ext4;
     u32 unk38;
@@ -1470,6 +1838,75 @@ struct UnkEffectExt {
     s8 : 8;
     s32 unk18;
 };
+
+struct Effect4Ext {
+    u16 timer;
+    s16 unk16;
+};
+
+struct Effect22Ext {
+    u8 unk14;
+    u8 unk15;
+    u8 unk16;
+    u8 pad17;
+    u16 unk18;
+};
+
+struct Effect24Ext {
+    struct EffectObj* spawned_effect;
+    u16 timer;
+    u8 unk1A;
+    u8 unk1B;
+};
+
+struct Effect38Ext {
+    u8 pad14;
+    u8 timer;
+    u8 unk16;
+    u8 unk17;
+};
+
+struct Effect8Ext {
+    u8 pad14[2];
+    u8 unk16;
+    u8 pad17;
+    u16 unk18;
+};
+
+struct Effect9Ext {
+    u16 transition_timer;
+    u16 movement_timer;
+    s16 direction;
+};
+
+struct Effect42Ext {
+    union {
+        struct MainObj* main;
+        struct PlayerObj* player;
+    } owner;
+    u8 timer;
+};
+
+struct Effect43Ext {
+    u16 unk14;
+    u16 unk16;
+};
+
+struct Effect5Ext {
+    u32 unk14;
+    u32 unk18;
+    u8 unk1C;
+    u8 pad1D;
+    u8 unk1E;
+};
+
+struct Effect14Ext {
+    u16 unk14;
+    u8 unk16;
+};
+struct Effect17Ext { u8 pad14[4], timer; };
+struct Effect32Ext { u8 unk14, unk15, unk16, pad17, palette[4]; u8* palette_source; };
+struct Effect36Ext { u8 pad14[4]; struct Unk_unk68* collision_bounds; };
 struct ScalingX {
     struct Unk14* unk14;
     s8 unk18;
@@ -1485,7 +1922,26 @@ struct PaletteAnimationExt {
 };
 
 union EffectExt {
+    struct Effect9Ext effect_9;
+    u16 effect_26_timer;
+    struct Effect4Ext effect_4;
     struct UnkEffectExt unk_effect;
+    struct Effect5Ext effect_5;
+    struct Effect8Ext effect_8;
+    struct Effect14Ext effect_14;
+    struct Effect17Ext effect_17;
+    struct UnkEffectExt effect_15;
+    struct UnkEffectExt effect_19;
+    struct UnkEffectExt effect_20;
+    struct Effect22Ext effect_22;
+    struct Effect24Ext effect_24;
+    struct UnkEffectExt effect_25;
+    struct UnkEffectExt effect_27;
+    struct Effect32Ext effect_32;
+    struct Effect36Ext effect_36;
+    struct Effect38Ext effect_38;
+    struct Effect42Ext effect_42;
+    struct Effect43Ext effect_43;
     struct ScalingX scaling_x;
     struct PaletteAnimationExt palette_animation;
 };
@@ -1517,7 +1973,7 @@ ASSERT_OBJECT_HEADER(ItemObj, bg_offset);
 ASSERT_OBJECT_HEADER(LayerObj, bg_offset);
 ASSERT_OBJECT_HEADER(MiscObj, bg_offset);
 ASSERT_OBJECT_HEADER(BazObj, bg_offset);
-ASSERT_OBJECT_HEADER(QuxObj, bg_offset);
+ASSERT_OBJECT_HEADER(RideArmorObj, bg_offset);
 ASSERT_OBJECT_HEADER(MainObj, bg_offset);
 ASSERT_OBJECT_HEADER(QuadObj, unk14);
 ASSERT_OBJECT_HEADER(EffectObj, ext);
@@ -1617,6 +2073,7 @@ extern s8 D_800F8CCC[];
 extern s8 D_800F8CE4[];
 extern s8 D_800F8CFC[];
 extern s8 D_800F8D14[];
+extern u8 D_800F8D44[];
 extern struct VisualAttachmentOffset D_8010A1AC[2];
 extern struct VisualAttachmentOffset D_8010A1B4[2];
 extern struct VisualAttachmentInit D_8010A1BC[4];
@@ -1660,6 +2117,7 @@ extern u32* D_8010E55C[];
 extern u32* D_8010ECD4[];
 extern s8 D_8010FE38[];
 extern u8 D_8010FED4[];
+extern s16 D_8010FF00[4];
 extern u8 D_801193F0[];
 extern u32 D_801194F0[];
 extern u8 D_8011A030[];
@@ -1668,6 +2126,9 @@ extern u32 D_8011A230[];
 extern u8 D_8011AF60[];
 extern u32* D_8011BF40[54];
 extern u32* D_8011C0E4[3];
+extern union AnimationStep* D_800FE890[21];
+extern void* D_80101624[12];
+extern void* D_80101A6C[30];
 #ifdef MMX4_PC
 extern struct MainBssState main_bss_state;
 #define D_80141BD8 (main_bss_state.flags)
@@ -1708,7 +2169,9 @@ extern u8 D_800F2490[];
 extern struct BackgroundCameraModePair D_800F32D4[16][2];
 extern u16 D_80106770[64];
 extern u8 D_800FAEF0[8];
+extern u8 D_800FAEF8[4];
 extern struct Unk_unk68 D_800FAEFC;
+extern struct Unk_unk68 D_8010D0FC;
 extern s32 D_800EE458;
 extern void (*D_8012F490)(void);
 extern s8 D_80173C6C[4];
@@ -1850,6 +2313,7 @@ extern struct MiscObj* D_8013B808;
 extern u8* D_8013B80C;
 extern s8 D_8013B810;
 extern u8 D_8013B814;
+extern u8 D_8013B8A0[];
 extern struct AbcObj abc_object;
 extern struct BarObj bar_object;
 extern struct BazObj baz_objects[2];
@@ -1863,7 +2327,7 @@ extern struct ItemObj item_objects[0x20];
 extern struct MiscObj misc_objects[0x40];
 extern const u8* D_800FB0BC[12];
 extern struct LayerObj layer_objects[4];
-extern struct QuxObj qux_object;
+extern struct RideArmorObj qux_object;
 extern struct GameInfo game_info;
 extern void (*D_800F485C[1])();
 extern void (*ReadyTextUpdateFuncs[3])();
@@ -1997,7 +2461,7 @@ struct XaSequenceData {
 };
 extern struct XaSequenceData D_800F1A0C;
 extern u8* D_80141F00;
-extern u8* D_80141F50[8];
+extern u8* D_80141F50[];
 extern u8* cur_draw_info_dispenv_screen_w;
 extern u8* cur_draw_info_drawenv;
 
@@ -2009,11 +2473,15 @@ extern RECT D_80137CFC;
 extern s32 D_80137D08[];
 extern s32 D_800F99C4[][2];
 extern struct FixedPointPosition D_800F99D4[];
+extern u32* D_8010DBC0[];
+extern u8 D_8010DBF8[];
 
 #include "func_tables.h"
 
 s32 func_80034E2C();
 s32 func_80034F7C();
+s16 func_8002BAA4(void);
+void func_80036470(s32 arg0);
 void func_800129F0(s32);
 void func_800127C8(s32);
 void func_80012A3C();
@@ -2047,6 +2515,16 @@ void func_80027AAC(struct BackgroundObj*);
 void func_80027AFC(struct BackgroundObj*);
 void func_80027B70(struct Unk9*);
 void func_80027BE4(struct BackgroundObj*);
+void func_80027E90(struct BackgroundObj*);
+void func_80027EBC(struct BackgroundObj*);
+void func_80027F50(void);
+void func_80027F7C(void);
+void func_80028310(struct BackgroundObj*);
+void func_80028338(struct BackgroundObj*);
+void func_80028364(struct BackgroundObj*);
+void func_800283D0(struct BackgroundObj*);
+void func_800283F8(void);
+void func_80028424(void);
 s32 func_80039C34(struct Unk12*);
 s32 func_80039E5C(struct Unk12*);
 s32 func_80039F28(struct Unk12*);
@@ -2087,6 +2565,8 @@ void func_80022730(struct AbcObj*);
 void func_8002B718(struct MovingObj*);
 s32 func_8002B7B0(struct ObjectHeader*, s32, s32);
 void func_8002B93C(struct MovingObj*, s32);
+void func_8002B9F0(s32 *arg0, s32 *arg1, u8 arg2);
+void func_80028A48(struct BackgroundObj *arg0);
 void func_800DABE4(u8, s16, s16);
 s32 func_8002B160(struct BaseObj*);
 s32 func_8002B1E8(struct BaseObj*, s32, s32);
@@ -2117,6 +2597,9 @@ s8 func_800136B0();
 void func_800137F0();
 void MyCdReadyCallback(u8 status, u8* result);
 void func_80018000(s32);
+void func_8002B0C8(struct ObjectHeader* arg0);
+void func_8002B108(struct ObjectHeader* arg0);
+void func_8002B694(struct AnimatedObj* arg0);
 
 enum SelectedPlayer {
     CHARACTER_X,

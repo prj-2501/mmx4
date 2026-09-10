@@ -13,7 +13,10 @@ INCLUDE_ASM("main/nonmatchings/mains/main_14", func_8004D044);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_14", func_8004D160);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_14", func_8004D1C8);
+void func_8004D1C8(struct MainObj* arg0)
+{
+    arg0->unk5 = arg0->ext.main_14.saved_unk5;
+}
 
 void func_8004D1D4(struct MainObj* arg0)
 {
@@ -57,7 +60,14 @@ INCLUDE_ASM("main/nonmatchings/mains/main_14", func_8004D61C);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_14", func_8004D69C);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_14", func_8004D6CC);
+void func_8004D6CC(struct AnimatedObj* arg0)
+{
+    if (arg0->x_pos.val > g_Player.x_pos.val) {
+        arg0->unk15 = 0;
+    } else {
+        arg0->unk15 = 0x40;
+    }
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_14", func_8004D6FC);
 

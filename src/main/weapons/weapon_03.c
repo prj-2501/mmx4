@@ -14,9 +14,29 @@ INCLUDE_ASM("main/nonmatchings/weapons/weapon_03", func_80094DC0);
 
 INCLUDE_ASM("main/nonmatchings/weapons/weapon_03", func_80094E50);
 
-INCLUDE_ASM("main/nonmatchings/weapons/weapon_03", func_80094EC8);
+void func_80094EC8(struct WeaponObj* arg0)
+{
+    arg0->unk50 = 0;
+    g_Player.unk98--;
+    g_Player.unk99--;
+    ZeroObjectState((struct ObjectHeader*)arg0);
+}
 
-INCLUDE_ASM("main/nonmatchings/weapons/weapon_03", func_80094F14);
+void func_80094F14(s32 arg0)
+{
+    u16* var_a0;
+    u16* var_v1;
+    u32 var_a1;
+
+    var_a1 = 0;
+    var_a0 = SP_PALETTE_BANK[(s16)arg0];
+    var_v1 = SP_PALETTES[1];
+    do {
+        *var_v1++ = *var_a0++;
+        var_a1 += 1;
+    } while (var_a1 < 0x10U);
+    need_palette_load |= 1;
+}
 
 void func_80094F74(void)
 {
@@ -71,7 +91,7 @@ void func_80094F74(void)
             if (obj->y_pos.i.hi >= entity->y_pos.i.hi) {
                 entity->y_pos.i.hi = obj->y_pos.i.hi;
             }
-            decompress_player_gfx(entity, 320, 64);
+            decompress_player_gfx(GRAPHICS_OBJECT(entity), 320, 64);
             if (entity->unkDA != 0 && entity->unkDA < 60) {
                 entity->on_screen ^= 1;
             }

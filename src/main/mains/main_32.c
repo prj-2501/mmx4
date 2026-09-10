@@ -2,17 +2,30 @@
 // 8005C824..8005D1F4
 #include "common.h"
 
-INCLUDE_ASM("main/nonmatchings/mains/main_32", func_8005C824);
+void func_8005C824(struct MainObj* arg0)
+{
+    D_800FDD2C[arg0->state](arg0);
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_32", func_8005C860);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_32", func_8005C960);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_32", func_8005CADC);
+void func_8005CADC(struct MainObj* arg0)
+{
+    func_8002B0C8(OBJECT_HEADER(arg0));
+}
 
-INCLUDE_ASM("main/nonmatchings/mains/main_32", func_8005CAFC);
+void func_8005CAFC(struct MainObj* arg0)
+{
+    arg0->unk5 = arg0->ext.main_32.saved_unk5;
+}
 
-INCLUDE_ASM("main/nonmatchings/mains/main_32", func_8005CB08);
+void func_8005CB08(struct MainObj* arg0)
+{
+    func_8005D118(arg0);
+    D_800FDD5C[arg0->unk6](arg0);
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_32", func_8005CB54);
 
@@ -58,6 +71,13 @@ INCLUDE_ASM("main/nonmatchings/mains/main_32", func_8005D0A0);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_32", func_8005D0D8);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_32", func_8005D118);
+void func_8005D118(struct MainObj* arg0)
+{
+    if (arg0->x_pos.val > g_Player.x_pos.val) {
+        arg0->unk15 = 0;
+    } else {
+        arg0->unk15 = 0x40;
+    }
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_32", func_8005D148);

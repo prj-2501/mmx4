@@ -37,28 +37,28 @@ void func_80049904(struct MainObj* arg0)
         } else {
             arg0->unk15 = 0x40;
         }
-        arg0->state_8c.unk8C = 1;
-        arg0->unk90 = 1;
+        arg0->ext.main_10.unk8C = 1;
+        arg0->ext.main_10.unk90 = 1;
         break;
     case 1:
         arg0->unk7A = 1;
         arg0->unk15 = 0x40;
-        arg0->state_8c.unk8C = 0;
-        arg0->unk90 = 1;
+        arg0->ext.main_10.unk8C = 0;
+        arg0->ext.main_10.unk90 = 1;
         break;
     case 2:
         arg0->unk7A = 1;
         arg0->unk15 = 0;
-        arg0->state_8c.unk8C = 0;
-        arg0->unk90 = 1;
+        arg0->ext.main_10.unk8C = 0;
+        arg0->ext.main_10.unk90 = 1;
         break;
     case 3:
     case 4:
     case 9:
     case 10:
         arg0->unk7A = 1;
-        arg0->state_8c.unk8C = 0;
-        arg0->unk90 = 0;
+        arg0->ext.main_10.unk8C = 0;
+        arg0->ext.main_10.unk90 = 0;
         break;
     case 5:
     case 6:
@@ -66,8 +66,8 @@ void func_80049904(struct MainObj* arg0)
     case 12:
         arg0->unk7A = 1;
         arg0->unk2C = -0x600;
-        arg0->state_8c.unk8C = 0;
-        arg0->unk90 = 0;
+        arg0->ext.main_10.unk8C = 0;
+        arg0->ext.main_10.unk90 = 0;
         break;
     case 7:
     case 8:
@@ -75,13 +75,13 @@ void func_80049904(struct MainObj* arg0)
     case 14:
         arg0->unk7A = 1;
         arg0->unk2C = 0x600;
-        arg0->state_8c.unk8C = 0;
-        arg0->unk90 = 0;
+        arg0->ext.main_10.unk8C = 0;
+        arg0->ext.main_10.unk90 = 0;
         break;
     }
     arg0->unk7C = 1;
     arg0->state = 1;
-    arg0->state_80.words.unk84 = 0;
+    arg0->ext.main_10.unk84 = 0;
     arg0->unk5 = 2;
     arg0->unk6 = 0;
 }
@@ -94,15 +94,15 @@ void func_80049AA0(struct MainObj* arg0)
     arg0->unk18.val = arg0->x_pos.val;
     arg0->unk1C.val = arg0->y_pos.val;
     D_800FB104[arg0->unk5](arg0);
-    if (arg0->state_8c.unk8C != 0) {
-        if (arg0->unk90 != 0) {
+    if (arg0->ext.main_10.unk8C != 0) {
+        if (arg0->ext.main_10.unk90 != 0) {
             temp_s1 = &g_Player.unkBA;
             if ((*temp_s1 == 0) && (func_8002D9BC(arg0) != 0) && (*temp_s1 != 0)) {
                 g_Player.unkA5 = arg0->unk15;
-                arg0->state_8c.unk8C = 3;
+                arg0->ext.main_10.unk8C = 3;
             }
         }
-        arg0->unk94 = arg0->unk5;
+        arg0->ext.main_10.saved_unk5 = arg0->unk5;
         if (func_8002DD04(arg0) < 0) {
             func_800AF808(arg0);
             func_800C813C(6, &D_800FB0EC, arg0);
@@ -125,15 +125,15 @@ void func_80049C0C(struct MainObj* arg0)
     arg0->unk7A = 0;
     arg0->unk62 = 0;
     func_80015930(2, 0xD);
-    if (arg0->state_8c.unk8C == 3) {
+    if (arg0->ext.main_10.unk8C == 3) {
         g_Player.unkBA = 0;
     }
-    arg0->state_80.words.unk80 = 0;
-    arg0->state_80.words.unk84 = 0;
-    arg0->unk88 = 0;
-    arg0->state_8c.unk8C = 0;
-    arg0->unk90 = 0;
-    arg0->unk94 = 0;
+    arg0->ext.main_10.unk80 = 0;
+    arg0->ext.main_10.unk84 = 0;
+    arg0->ext.main_10.unk88 = 0;
+    arg0->ext.main_10.unk8C = 0;
+    arg0->ext.main_10.unk90 = 0;
+    arg0->ext.main_10.saved_unk5 = 0;
     arg0->state = 3;
 }
 
@@ -148,7 +148,7 @@ void func_80049C78(struct MainObj* arg0)
 
 void func_80049CBC(struct MainObj* arg0)
 {
-    arg0->unk5 = arg0->unk94;
+    arg0->unk5 = arg0->ext.main_10.saved_unk5;
 }
 
 void func_80049CC8(struct MainObj* arg0)
@@ -160,14 +160,14 @@ void func_80049CC8(struct MainObj* arg0)
         break;
     case 1:
         if (g_Player.x_pos.i.hi - arg0->x_pos.i.hi >= 0xC1) {
-            arg0->state_8c.unk8C = 1;
+            arg0->ext.main_10.unk8C = 1;
             arg0->unk7A = 0;
             arg0->unk5 = 3;
         }
         break;
     case 2:
         if (arg0->x_pos.i.hi - g_Player.x_pos.i.hi >= 0xC1) {
-            arg0->state_8c.unk8C = 1;
+            arg0->ext.main_10.unk8C = 1;
             arg0->unk7A = 0;
             arg0->unk5 = 3;
         }
@@ -179,7 +179,7 @@ void func_80049CC8(struct MainObj* arg0)
     case 7:
     case 8:
         if (g_Player.x_pos.i.hi - arg0->x_pos.i.hi >= 0xC1) {
-            arg0->state_8c.unk8C = 1;
+            arg0->ext.main_10.unk8C = 1;
             arg0->unk7A = 0;
             arg0->unk15 = 0x40;
             if (!(arg0->unk2 & 1)) {
@@ -198,7 +198,7 @@ void func_80049CC8(struct MainObj* arg0)
     case 14:
         arg0->unk7A = 0;
         arg0->unk15 = 0;
-        arg0->state_8c.unk8C = 1;
+        arg0->ext.main_10.unk8C = 1;
         if (!(arg0->unk2 & 1)) {
             arg0->unk20 = FIXED(-8);
         } else {
@@ -217,15 +217,41 @@ INCLUDE_ASM("main/nonmatchings/mains/main_10", func_80049E24);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_10", func_80049E68);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_10", func_80049F20);
+void func_80049F20(struct MainObj* arg0)
+{
+    if (arg0->ext.main_10.unk84 == 0) {
+        func_8004A5E0(arg0);
+    } else {
+        arg0->ext.main_10.unk84--;
+    }
+
+    if (--arg0->ext.main_10.unk80 == 0) {
+        if (get_random() & 1) {
+            func_8004A5E0(arg0);
+            func_80015D60(arg0, 1);
+            arg0->unk5 = 4;
+            arg0->unk6 = 0;
+            return;
+        }
+
+        if (g_Player.y_pos.i.hi - 0x18 < arg0->y_pos.i.hi) {
+            arg0->unk24 = FIXED(3);
+        } else {
+            arg0->unk24 = FIXED(-3);
+        }
+        arg0->unk6 = 3;
+    }
+
+    func_80015DC8(arg0);
+}
 
 void func_80049FE8(struct MainObj* arg0)
 {
     func_8002B718((struct MovingObj*)arg0);
-    if (arg0->state_80.words.unk84 == 0) {
+    if (arg0->ext.main_10.unk84 == 0) {
         func_8004A5E0(arg0);
     } else {
-        arg0->state_80.words.unk84--;
+        arg0->ext.main_10.unk84--;
     }
     if (arg0->unk24 < 0
             ? (g_Player.y_pos.i.hi - 0x18) < arg0->y_pos.i.hi
@@ -244,15 +270,112 @@ void func_8004A0AC(struct MainObj* arg0)
     CollisionRelated((struct PlayerObj*)arg0);
 }
 
-INCLUDE_ASM("main/nonmatchings/mains/main_10", func_8004A0FC);
+void func_8004A0FC(struct MainObj* arg0)
+{
+    if (arg0->animation_step.fields.event != 0) {
+        func_8004A5E0(arg0);
+        arg0->unk50 = D_800FAEF8;
+        arg0->unk62 = 3;
+        arg0->unk60 = 0;
+        func_80015D60(arg0, 2);
+        arg0->unk6 = 1;
+        arg0->ext.main_10.unk80 = 0xB4;
+        return;
+    }
+
+    func_80015DC8(arg0);
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_10", func_8004A178);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_10", func_8004A31C);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_10", func_8004A378);
+void func_8004A378(struct MainObj* arg0)
+{
+    u32 temp_v0;
+    s32 temp_v1;
 
-INCLUDE_ASM("main/nonmatchings/mains/main_10", func_8004A468);
+    func_8004A644(arg0);
+    temp_v1 = arg0->ext.main_10.unk88 + func_8002BAA4();
+    arg0->ext.main_10.unk88 = temp_v1;
+    if (temp_v1 >= 0x15) {
+        g_Player.unkBA = 0;
+        arg0->unk50 = D_800FAEF0;
+        arg0->unk62 = 0;
+        func_80015D60(arg0, 5);
+        arg0->unk24 = 0x20000;
+        arg0->unk50 = NULL;
+        arg0->unk5 = 5;
+        arg0->unk6 = 0;
+        return;
+    }
+
+    temp_v0 = arg0->ext.main_10.unk80 - 1;
+    arg0->ext.main_10.unk80 = temp_v0;
+    if (temp_v0 == 0) {
+        func_80015D60(arg0, 4);
+        arg0->ext.main_10.unk80 = 0xA;
+        arg0->unk7E = 1;
+        arg0->unk24 = 0;
+        arg0->unk6 = 4;
+    } else {
+        func_80015DC8(arg0);
+    }
+
+    if (!(func_8004A690(arg0) & 0xFF)) {
+        func_8002B718(MOVING_OBJECT(arg0));
+    }
+}
+
+void func_8004A468(struct MainObj* arg0)
+{
+    s16 temp_v0;
+    s32 temp_v1;
+    u32 temp_v1_2;
+
+    temp_v0 = (u16)arg0->unk7E - 1;
+    arg0->unk7E = temp_v0;
+    if (temp_v0 == 0) {
+        func_8001540C(2, 0xE, arg0);
+        arg0->unk7E = 0x14;
+    }
+
+    func_8004A644(arg0);
+    temp_v1 = arg0->ext.main_10.unk88 + func_8002BAA4();
+    arg0->ext.main_10.unk88 = temp_v1;
+    if (temp_v1 >= 0x15) {
+        func_80015930(2, 0xE);
+        g_Player.unkBA = 0;
+        arg0->unk50 = NULL;
+        arg0->unk62 = 0;
+        func_80015D60(arg0, 5);
+        arg0->unk24 = 0x20000;
+        arg0->unk5 = 5;
+        arg0->unk6 = 0;
+        return;
+    }
+
+    if (arg0->animation_step.fields.event != 0) {
+        temp_v1_2 = arg0->ext.main_10.unk80 - 1;
+        arg0->ext.main_10.unk80 = temp_v1_2;
+        if (temp_v1_2 == 9 || temp_v1_2 == 4) {
+            func_80036470(2);
+        }
+        if (arg0->ext.main_10.unk80 == 0) {
+            func_80015930(2, 0xE);
+            g_Player.unkBA = 0;
+            arg0->unk62 = 0;
+            func_80015D60(arg0, 5);
+            arg0->unk24 = 0x20000;
+            arg0->unk50 = NULL;
+            arg0->unk5 = 5;
+            arg0->unk6 = 0;
+            return;
+        }
+    }
+
+    func_80015DC8(arg0);
+}
 
 void func_8004A5B0(struct MainObj* arg0)
 {
@@ -260,7 +383,18 @@ void func_8004A5B0(struct MainObj* arg0)
     func_80015DC8(arg0);
 }
 
-INCLUDE_ASM("main/nonmatchings/mains/main_10", func_8004A5E0);
+void func_8004A5E0(struct MainObj* arg0)
+{
+    if (arg0->unk15 != 0) {
+        if (arg0->x_pos.val > g_Player.x_pos.val) {
+            arg0->unk15 = 0;
+            arg0->ext.main_10.unk84 = 0x10;
+        }
+    } else if (arg0->x_pos.val < g_Player.x_pos.val) {
+        arg0->unk15 = 0x40;
+        arg0->ext.main_10.unk84 = 0x10;
+    }
+}
 
 void func_8004A644(struct MainObj* arg0)
 {
@@ -282,7 +416,7 @@ void func_8004A6E8(struct MainObj* arg0)
 
 u8 D_800FAEF0[8] = { 0xEE, 0xEC, 0x2A, 0x24, 0xD7, 0xEA, 0x3F, 0x35 };
 
-u32 D_800FAEF8 = 0x172009DB;
+u8 D_800FAEF8[4] = { 0xDB, 0x09, 0x20, 0x17 };
 
 struct Unk_unk68 D_800FAEFC = { -24, 3, 0x0A, 0x02 };
 

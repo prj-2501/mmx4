@@ -38,7 +38,12 @@ void func_800D8FDC(struct LayerObj* arg0)
     arg0->unk6++;
 }
 
-INCLUDE_ASM("main/nonmatchings/layers/layer_01", func_800D9008);
+void func_800D9008(struct LayerObj* arg0)
+{
+    volatile f32* camera_x = &background_objects[0].x_pos;
+    background_objects[1].x_pos.i.hi = background_objects[1].unk40 + (camera_x->i.hi + (camera_x->i.hi >> 1));
+    background_objects[1].y_pos.i.hi = background_objects[0].y_pos.i.hi;
+}
 
 void func_800D9050(struct LayerObj* arg0)
 {
@@ -112,4 +117,5 @@ void (*D_8010FF48[])(struct LayerObj*) = {
     func_800D8F9C,
     func_800D9050,
     func_800D90CC,
+    func_800D91A0,
 };

@@ -2,11 +2,16 @@
 // 8009AEE4..8009B07C
 #include "common.h"
 
+u8 D_80108D84[4] = { 0xFB, 0xFC, 0x09, 0x07 };
+
 INCLUDE_ASM("main/nonmatchings/shots/shot_08", func_8009AEE4);
 
 INCLUDE_ASM("main/nonmatchings/shots/shot_08", func_8009AF98);
 
-INCLUDE_ASM("main/nonmatchings/shots/shot_08", func_8009B020);
+void func_8009B020(struct ShotObj* arg0)
+{
+    ZeroObjectState(OBJECT_HEADER(arg0));
+}
 
 void func_8009B040(struct ShotObj* arg0)
 {

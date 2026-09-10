@@ -13,7 +13,19 @@ INCLUDE_ASM("main/nonmatchings/items/item_09", func_800C20F4);
 
 INCLUDE_ASM("main/nonmatchings/items/item_09", func_800C229C);
 
-INCLUDE_ASM("main/nonmatchings/items/item_09", func_800C24C0);
+void func_800C24C0(struct ItemObj* arg0)
+{
+    arg0->on_screen = 0;
+    func_8002B0C8(OBJECT_HEADER(arg0));
+}
+
+u8 D_8010CC84[4] = { 0, 0, 0x18, 0x10 };
+
+s32 D_8010CC88[1] = { 0x10000 };
+
+s32 D_8010CC8C[1] = { 0 };
+
+u16 D_8010CC90[2] = { 0x90, 0 };
 
 void (*D_8010CC94[])(struct ItemObj*) = {
     func_800C20F4,

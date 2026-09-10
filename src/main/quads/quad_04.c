@@ -6,9 +6,18 @@ INCLUDE_ASM("main/nonmatchings/quads/quad_04", func_800D526C);
 
 INCLUDE_ASM("main/nonmatchings/quads/quad_04", func_800D52F4);
 
-INCLUDE_ASM("main/nonmatchings/quads/quad_04", func_800D54A0);
+void func_800D54A0(struct QuadObj* arg0)
+{
+    if (arg0->ext.quad_4.timer-- == 0) {
+        arg0->state++;
+        quad_is_on_screen(arg0);
+    }
+}
 
-INCLUDE_ASM("main/nonmatchings/quads/quad_04", func_800D54E0);
+void func_800D54E0(struct QuadObj* arg0)
+{
+    ZeroObjectState(OBJECT_HEADER(arg0));
+}
 
 void func_800D5500(struct QuadObj* arg0)
 {

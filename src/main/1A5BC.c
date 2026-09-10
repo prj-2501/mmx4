@@ -440,7 +440,7 @@ struct WeaponObj* find_free_weapon_obj()
     struct WeaponObj* current;
     for (current = &weapon_objects[0]; current < &weapon_objects[0x10]; current++) {
         if (!current->active) {
-            current->unk50 = 0;
+            current->unk50 = NULL;
             current->unk54 = 0;
             current->unk68 = 0;
             current->unk98 = 0;
@@ -470,7 +470,7 @@ struct ShotObj* find_free_shot_obj(void)
     struct ShotObj* current;
     for (current = &shot_objects[0]; current < &shot_objects[0x20]; current++) {
         if (!current->active) {
-            current->unk50 = 0;
+            current->unk50.data = NULL;
             current->unk54 = 0;
             current->unk68 = 0;
             current->unk98 = 0;
@@ -920,7 +920,33 @@ void func_8002B93C(struct MovingObj* arg0, s32 arg1)
     arg0->y_vel.val = D_800F45C0[var_v1] * var_a2;
 }
 
-INCLUDE_ASM("main/nonmatchings/1A5BC", func_8002B9F0);
+void func_8002B9F0(s32* arg0, s32* arg1, u8 arg2)
+{
+    s16 var_a3, var_v0;
+    s16 var_v1;
+
+    if (arg2 < 0x10) {
+        var_a3 = 1;
+        if (arg2 < 8) {
+            var_v1 = 8 - arg2;
+            var_v0 = 1;
+        } else {
+            var_v1 = arg2 - 8;
+            var_v0 = -1;
+        }
+    } else {
+        var_a3 = -1;
+        if (arg2 < 0x18) {
+            var_v1 = 0x18 - arg2;
+            var_v0 = -1;
+        } else {
+            var_v1 = arg2 - 0x18;
+            var_v0 = 1;
+        }
+    }
+    *arg0 = D_800F459C[var_v1] * var_v0;
+    *arg1 = D_800F45C0[var_v1] * var_a3;
+}
 INCLUDE_ASM("main/nonmatchings/1A5BC", func_8002BAA4);
 
 s16 func_8002BAD0(s16 arg0, s16 arg1, s16 arg2)
@@ -1093,9 +1119,20 @@ void func_8002C954(struct PlayerObj* arg0)
     }
 }
 
-INCLUDE_ASM("main/nonmatchings/1A5BC", func_8002C99C);
+void func_8002C99C(struct PlayerObj* arg0)
+{
+    if ((func_8002D490() != 0) && (func_8002D25C(arg0) != 0)) {
+        func_8002C9E4(arg0);
+    }
+}
 
-INCLUDE_ASM("main/nonmatchings/1A5BC", func_8002C9E4);
+void func_8002C9E4(struct PlayerObj* arg0)
+{
+    arg0->x_pos.u.lo = 0;
+    arg0->y_pos.u.lo = 0;
+    arg0->x_pos.u.hi += D_8013B800;
+    arg0->y_pos.u.hi += D_8013B804;
+}
 
 void func_8002CA18(struct PlayerObj* arg0)
 {
@@ -1344,7 +1381,31 @@ s32 func_8002D41C(struct PlayerObj* arg0, s32 arg1, s32 arg2)
     }
 }
 
-INCLUDE_ASM("main/nonmatchings/1A5BC", func_8002D490);
+s32 func_8002D490(struct PlayerObj* arg0)
+{
+    s16 var_v0_2;
+
+    if (D_8013B7DC & 1) {
+        if (arg0->unk15 != 0) {
+            var_v0_2 = (D_8013B7E0 + (D_8013B7E8 + (D_8013B7F0 + D_8013B800))) - 1;
+        } else {
+            var_v0_2 = (D_8013B7E0 + ((D_8013B7F0 + D_8013B800) - D_8013B7E8)) - 1;
+        }
+    } else {
+        if (arg0->unk15 != 0) {
+            var_v0_2 = (D_8013B7E8 + (D_8013B7F0 + D_8013B800)) - D_8013B7E0;
+        } else {
+            var_v0_2 = ((D_8013B7F0 + D_8013B800) - D_8013B7E8) - D_8013B7E0;
+        }
+    }
+
+    if (func_8002D5E4(arg0, var_v0_2) != 0) {
+        return -1;
+    }
+    arg0->x_pos.i.lo = 0;
+    arg0->x_pos.i.hi += D_8013B800;
+    return 0;
+}
 
 s32 func_8002D5E4(struct PlayerObj* arg0, s16 arg1)
 {

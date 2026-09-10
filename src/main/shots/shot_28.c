@@ -2,6 +2,8 @@
 // 8009F46C..8009F638
 #include "common.h"
 
+u8 D_801091C0[4] = { 0xDB, 0xF2, 0x1E, 0x37 };
+
 void func_8009F46C(struct ShotObj* arg0)
 {
     struct BaseObj* unk7C = arg0->unk7C;
@@ -14,7 +16,10 @@ INCLUDE_ASM("main/nonmatchings/shots/shot_28", func_8009F4C0);
 
 INCLUDE_ASM("main/nonmatchings/shots/shot_28", func_8009F594);
 
-INCLUDE_ASM("main/nonmatchings/shots/shot_28", func_8009F618);
+void func_8009F618(struct ShotObj* arg0)
+{
+    ZeroObjectState(OBJECT_HEADER(arg0));
+}
 
 void (*D_801091C4[])(struct ShotObj*) = {
     func_8009F4C0,

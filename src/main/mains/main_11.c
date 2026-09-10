@@ -12,13 +12,25 @@ INCLUDE_ASM("main/nonmatchings/mains/main_11", func_8004AB6C);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_11", func_8004ACDC);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_11", func_8004ACF0);
+void func_8004ACF0(struct MainObj* arg0)
+{
+    arg0->state = 0;
+    arg0->unk5 = 0;
+    arg0->unk6 = 0;
+    func_8002B0C8(OBJECT_HEADER(arg0));
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_11", func_8004AD18);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_11", func_8004ADE8);
+void func_8004ADE8(struct MainObj* arg0)
+{
+    arg0->unk5 = SP_CUR_MAIN_OBJ->ext.main_11.saved_unk5;
+}
 
-INCLUDE_ASM("main/nonmatchings/mains/main_11", func_8004AE00);
+void func_8004AE00(struct MainObj* arg0)
+{
+    func_8002B718((struct MovingObj*)arg0);
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_11", func_8004AE20);
 

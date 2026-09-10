@@ -2,6 +2,8 @@
 // 800D9218..800D9C84
 #include "common.h"
 
+s16 D_8010FF58[4] = { 0x16B0, 0x1DE0, 0x2700, 0x2710 };
+
 void func_800D9218(struct LayerObj* arg0)
 {
     D_8010FF60[arg0->state](arg0);
@@ -199,9 +201,21 @@ void func_800D9934(struct LayerObj* arg0)
 
 INCLUDE_ASM("main/nonmatchings/layers/layer_02", func_800D993C);
 
-INCLUDE_ASM("main/nonmatchings/layers/layer_02", func_800D99B0);
+void func_800D99B0(struct LayerObj* arg0)
+{
+    if (--arg0->unk16 == 0) {
+        func_80028BAC(0x30, 2, 1);
+        arg0->unk16 = 0x78;
+    }
+}
 
-INCLUDE_ASM("main/nonmatchings/layers/layer_02", func_800D9A04);
+void func_800D9A04(struct LayerObj* arg0)
+{
+    if (--arg0->unk16 == 0) {
+        func_80028BAC(0x10, 1, 1);
+        arg0->unk16 = 0x1E;
+    }
+}
 
 INCLUDE_ASM("main/nonmatchings/layers/layer_02", func_800D9A58);
 
@@ -213,4 +227,13 @@ void (*D_8010FF60[])(struct LayerObj*) = {
     func_800D9268,
     func_800D9330,
     func_800D93FC,
+};
+
+void (*D_8010FF6C[])(struct LayerObj*) = {
+    func_800D941C,
+    func_800D9480,
+    func_800D9728,
+    func_800D986C,
+    func_800D98D0,
+    func_800D9934,
 };

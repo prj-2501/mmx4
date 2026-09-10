@@ -32,10 +32,22 @@ void func_80056478(struct MainObj* arg0)
 
 INCLUDE_ASM("main/nonmatchings/mains/main_23", func_800564B4);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_23", func_800565EC);
+void func_800565EC(struct MainObj* arg0)
+{
+    if (g_Player.x_pos.i.hi - arg0->x_pos.i.hi >= 0xC1) {
+        arg0->unk5 = 1;
+    }
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_23", func_80056618);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_23", func_80056718);
+void func_80056718(struct MainObj* arg0)
+{
+    func_8002B0C8(OBJECT_HEADER(arg0));
+}
 
-INCLUDE_ASM("main/nonmatchings/mains/main_23", func_80056738);
+void func_80056738(struct MainObj* arg0)
+{
+    D_800FCEC8[arg0->state](arg0);
+    CollisionRelated((struct PlayerObj*)arg0);
+}

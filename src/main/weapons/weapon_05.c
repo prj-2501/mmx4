@@ -14,16 +14,53 @@ INCLUDE_ASM("main/nonmatchings/weapons/weapon_05", func_80095AAC);
 
 INCLUDE_ASM("main/nonmatchings/weapons/weapon_05", func_80095B10);
 
-INCLUDE_ASM("main/nonmatchings/weapons/weapon_05", func_80095B94);
+void func_80095B94(struct WeaponObj* arg0)
+{
+    func_80015DC8(arg0);
+    if (arg0->unk46 == 0) {
+        func_80095DA8(arg0);
+        return;
+    }
+    func_8002B318((struct BaseObj*)arg0, 0x2C, 0x20);
+}
 
-INCLUDE_ASM("main/nonmatchings/weapons/weapon_05", func_80095BE8);
+void func_80095BE8(struct WeaponObj* arg0)
+{
+    arg0->unk50 = 0;
+    arg0->unk68 = 0;
+    g_Player.unk98--;
+    g_Player.unk99--;
+    ZeroObjectState((struct ObjectHeader*)arg0);
+}
 
 INCLUDE_ASM("main/nonmatchings/weapons/weapon_05", func_80095C38);
 
 INCLUDE_ASM("main/nonmatchings/weapons/weapon_05", func_80095CC0);
 
-INCLUDE_ASM("main/nonmatchings/weapons/weapon_05", func_80095D18);
+void func_80095D18(struct WeaponObj* arg0)
+{
+    func_80015D60(arg0, 2);
+    arg0->unk67 = 1;
+    arg0->y_vel.val = -FIXED(6);
+    arg0->x_vel.val = 0;
+    arg0->unk5 = 2;
+}
 
-INCLUDE_ASM("main/nonmatchings/weapons/weapon_05", func_80095D60);
+void func_80095D60(struct WeaponObj* arg0)
+{
+    func_80015D60(arg0, 6);
+    arg0->x_vel.val = 0;
+    arg0->y_vel.val = 0;
+    arg0->unk50 = 0;
+    arg0->unk68 = 0;
+    arg0->state = 2;
+    arg0->unk5 = 0;
+}
 
-INCLUDE_ASM("main/nonmatchings/weapons/weapon_05", func_80095DA8);
+void func_80095DA8(struct WeaponObj* arg0)
+{
+    arg0->on_screen = 0;
+    arg0->state = 3;
+    arg0->unk50 = 0;
+    arg0->unk68 = 0;
+}

@@ -11,11 +11,21 @@ INCLUDE_ASM("main/nonmatchings/mains/main_12", func_8004B8FC);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_12", func_8004BAF8);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_12", func_8004BC14);
+void func_8004BC14(struct MainObj* arg0)
+{
+    arg0->unk5 = SP_CUR_MAIN_OBJ->ext.main_12.saved_unk5;
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_12", func_8004BC2C);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_12", func_8004BCC8);
+void func_8004BCC8(struct MainObj* arg0)
+{
+    arg0->unk5 = 4;
+    arg0->unk6 = 0;
+    arg0->unk7 = 0;
+    arg0->unk7E = 8;
+    func_80015DC8(arg0);
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_12", func_8004BCFC);
 
@@ -27,8 +37,22 @@ INCLUDE_ASM("main/nonmatchings/mains/main_12", func_8004C394);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_12", func_8004C56C);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_12", func_8004C654);
+void func_8004C654(struct MainObj* arg0)
+{
+    if (arg0->unk2 == 2) {
+        ZeroObjectState(OBJECT_HEADER(arg0));
+        return;
+    }
+    func_8002B0C8(OBJECT_HEADER(arg0));
+}
 
-INCLUDE_ASM("main/nonmatchings/mains/main_12", func_8004C694);
+void func_8004C694(struct MainObj* arg0)
+{
+    if (arg0->x_pos.val < g_Player.x_pos.val) {
+        arg0->unk15 = 0x40;
+    } else {
+        arg0->unk15 = 0;
+    }
+}
 
 INCLUDE_ASM("main/nonmatchings/mains/main_12", func_8004C6C4);
