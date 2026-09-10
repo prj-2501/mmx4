@@ -41,7 +41,15 @@ void func_800CC1F8(struct MiscObj* arg0)
 
 INCLUDE_ASM("main/nonmatchings/misc/misc_24", func_800CC234);
 
-INCLUDE_ASM("main/nonmatchings/misc/misc_24", func_800CC304);
+void func_800CC304(struct MiscObj* arg0)
+{
+    func_80015DC8((struct AnimatedObj*)arg0);
+    
+    if ((--arg0->ext.ready_text.unk54 << 0x10) == 0) {
+        arg0->unk5 = 2;
+        arg0->unk6 = 0;
+    }
+}
 
 void func_800CC350(struct MiscObj* arg0)
 {

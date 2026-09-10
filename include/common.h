@@ -1111,7 +1111,10 @@ struct LayerObj {
     BASE_OBJ_FIELDS
     f32 unk18;
     union LayerPrivateState private_state;
-    s8 pad20[0x30 - 0x20];
+    s8 pad20[0x24 - 0x20];
+    u8 unk24;
+    u8 unk25;
+    s8 pad26[0x30 - 0x26];
 }; // size 0x30
 
 struct MiscUnk50_2 {
