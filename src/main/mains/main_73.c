@@ -199,7 +199,10 @@ void func_8008D2FC(struct MainObj* arg0)
     }
 }
 
-INCLUDE_ASM("main/nonmatchings/mains/main_73", func_8008D340);
+void func_8008D340(struct MainObj* arg0)
+{
+    D_80105334[arg0->unk5](arg0);
+}
 
 void func_8008D37C(struct MainObj* arg0)
 {
