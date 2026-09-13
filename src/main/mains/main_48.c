@@ -21,18 +21,72 @@ void func_80067640(struct MainObj* arg0)
     D_800FFB14[arg0->unk6](arg0);
 }
 
-INCLUDE_ASM("main/nonmatchings/mains/main_48", func_8006767C);
+void func_8006767C(struct MainObj* arg0)
+{
+    s32 direction = -FIXED(0.5);
+    arg0->unk67 = 1;
+    arg0->unk6++;
+    if (arg0->unk15 != 0) {
+        direction = FIXED(0.5);
+    }
+    arg0->unk20 = direction;
+    arg0->unk28 = 0;
+    arg0->unk24 = 0;
+    arg0->unk2C = 0;
+    SP_CUR_MAIN_OBJ->ext.main_48.unk80 = 0x30;
+    func_80015D60(arg0, 0);
+}
 
-INCLUDE_ASM("main/nonmatchings/mains/main_48", func_800676E0);
+void func_800676E0(struct MainObj* arg0)
+{
+    s8 timer;
+    func_80015DC8(ANIMATED_OBJECT(arg0));
+    func_8002B718(MOVING_OBJECT(arg0));
+    timer = --SP_CUR_MAIN_OBJ->ext.main_48.unk80;
+    if (timer == 0) {
+        arg0->unk5 = 3;
+        arg0->unk6 = 0;
+    }
+}
 
 void func_80067740(struct MainObj* arg0)
 {
     D_800FFB1C[arg0->unk6](arg0);
 }
 
-INCLUDE_ASM("main/nonmatchings/mains/main_48", func_8006777C);
+void func_8006777C(struct MainObj* arg0)
+{
+    s32 velocity;
+    arg0->unk67 = 0;
+    arg0->unk6++;
+    if ((arg0->unk2 & 0xF) == 2) {
+        arg0->unk20 = 0;
+    } else {
+        velocity = -FIXED(4);
+        if (arg0->unk15 != 0) {
+            velocity = FIXED(4);
+        }
+        arg0->unk20 = velocity;
+    }
+    arg0->unk28 = 0;
+    arg0->unk24 = 0;
+    arg0->unk2C = 0;
+    func_80015D60(arg0, 0);
+    SP_CUR_MAIN_OBJ->ext.main_48.unk80 = 0x3C;
+}
 
-INCLUDE_ASM("main/nonmatchings/mains/main_48", func_800677F8);
+void func_800677F8(struct MainObj* arg0)
+{
+    s8 timer;
+    func_80015DC8(ANIMATED_OBJECT(arg0));
+    func_8002B718(MOVING_OBJECT(arg0));
+    timer = --SP_CUR_MAIN_OBJ->ext.main_48.unk80;
+    if (timer == 0) {
+        arg0->unk67 = -1;
+        arg0->unk5 = 6;
+        arg0->unk6 = 0;
+    }
+}
 
 void func_80067860(struct MainObj* arg0)
 {
@@ -53,9 +107,41 @@ void func_80067A80(struct MainObj* arg0)
 
 INCLUDE_ASM("main/nonmatchings/mains/main_48", func_80067AA8);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_48", func_80067BB0);
+void func_80067BB0(struct MainObj* arg0)
+{
+    struct MainObj* work = SP_CUR_MAIN_OBJ;
+    s8 timer;
+    if (work->ext.main_48.unk82 >= 3) {
+        arg0->unk6++;
+        SP_CUR_MAIN_OBJ->ext.main_48.unk82 = 0;
+        SP_CUR_MAIN_OBJ->ext.main_48.unk80 = 0x14;
+    } else {
+        timer = work->ext.main_48.unk80 - 1;
+        work->ext.main_48.unk80 = timer;
+        if (timer == 0) {
+            arg0->unk6--;
+        }
+    }
+}
 
-INCLUDE_ASM("main/nonmatchings/mains/main_48", func_80067C34);
+void func_80067C34(struct MainObj* arg0)
+{
+    struct MainObj* work = SP_CUR_MAIN_OBJ;
+    s8 state = work->ext.main_48.unk80;
+
+    if (state == 0) {
+        if (++work->ext.main_48.unk83 >= 2) {
+            arg0->unk5 = 5;
+            arg0->unk6 = 0;
+            SP_CUR_MAIN_OBJ->ext.main_48.unk83 = 0;
+        } else {
+            arg0->unk5 = 3;
+            arg0->unk6 = 0;
+        }
+    } else {
+        work->ext.main_48.unk80 = state - 1;
+    }
+}
 
 void func_80067CB0(struct MainObj* arg0)
 {
@@ -69,7 +155,15 @@ INCLUDE_ASM("main/nonmatchings/mains/main_48", func_80067DAC);
 
 INCLUDE_ASM("main/nonmatchings/mains/main_48", func_80067EE4);
 
-INCLUDE_ASM("main/nonmatchings/mains/main_48", func_80068000);
+void func_80068000(struct MainObj* arg0)
+{
+    if (SP_CUR_MAIN_OBJ->ext.main_48.unk82 < 9) {
+        func_80068340(arg0);
+        arg0->unk6 -= 2;
+    } else {
+        arg0->unk6++;
+    }
+}
 
 void func_80068060(struct MainObj* arg0)
 {
